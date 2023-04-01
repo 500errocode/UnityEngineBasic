@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-int x, y;
+﻿int x, y;
 int[,] map = new int[5, 5]
 {
     { 0, 0, 0, 0, 1 },
@@ -33,6 +32,7 @@ void MoveRight()
         Console.WriteLine("오른쪽 이동 실패. 벽이 막고있음");
         return;
     }
+
     map[y, x] = 0;
     x++;
     map[y, x] = 5;
@@ -52,6 +52,7 @@ void MoveLeft()
         Console.WriteLine("왼쪽 이동 실패. 벽이 막고있음");
         return;
     }
+
     map[y, x] = 0;
     x--;
     map[y, x] = 5;
@@ -71,6 +72,7 @@ void MoveUp()
         Console.WriteLine("위쪽 이동 실패. 벽이 막고있음");
         return;
     }
+
     map[y, x] = 0;
     y--;
     map[y, x] = 5;
@@ -80,16 +82,17 @@ void MoveUp()
 
 void MoveDown()
 {
-    if (y > map.GetLength(1) - 2)
+    if (y > map.GetLength(0) - 2)
     {
         Console.WriteLine("아래쪽 이동 실패. 맵 경계를 벗어남");
         return;
     }
-    if (map[y + 1, x ] == 1)
+    if (map[y + 1, x] == 1)
     {
         Console.WriteLine("아래쪽 이동 실패. 벽이 막고있음");
         return;
     }
+
     map[y, x] = 0;
     y++;
     map[y, x] = 5;
@@ -102,13 +105,15 @@ y = 0;
 map[0, 0] = 5;
 DisplayMap();
 
+
 while (true)
 {
-    Console.WriteLine("플레이어의 이동방향을 입력하세요 : l / r / u / d");
+    Console.WriteLine("플레이어 이동방향을 입력하세요 : l / r / u / d");
     string input = Console.ReadLine();
 
     if (input.Equals("l")) MoveLeft();
     else if (input.Equals("r")) MoveRight();
     else if (input.Equals("u")) MoveUp();
     else if (input.Equals("d")) MoveDown();
+    else Console.WriteLine("잘못된 입력입니다. l / r / u / d");
 }

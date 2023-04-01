@@ -12,30 +12,31 @@ using ClassObjectInstance;
 SwordMan swordMan = new SwordMan();
 
 // .연산자
-//멤버접근연산자
+// 멤버접근연산자
 swordMan.Name = "검사1";
 swordMan.Attack();
 swordMan.Jump();
 
-SwordMan swordMan2= new SwordMan();
+SwordMan swordMan2 = new SwordMan();
 swordMan2.Name = "검사2";
 
 swordMan = swordMan2;
-// 검사1을 점프시키고 싶으면 어떻게 할까? => 안됨
+// 검사1을 점프시키고 싶은데 어떻게하지? => 안됨
 
 Orc orc1 = new Orc();
-Orc orc2 = new Orc();
-
 orc1.Name = "상급오크";
-orc1.kg = 80.2f;
-orc1.cm = 60.3f;
 orc1.Age = 210;
-orc1.gender = "여";
-orc2.Age = 140;
-orc2.gender = "남";
-orc2.cm = 72.0f;
-orc2.kg = 24.4f;
+orc1.Height = 60.3f;
+orc1.Weight = 80.2f;
+orc1.Gender = '여';
+
+Orc orc2 = new Orc();
 orc2.Name = "하급오크";
+orc2.Age = 140;
+orc2.Height = 72.0f;
+orc2.Weight = 24.4f;
+orc2.Gender = '남';
+
 orc1.SayMyName();
 orc1.SayMyInfo();
 orc2.SayMyName();

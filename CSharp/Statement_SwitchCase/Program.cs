@@ -1,4 +1,7 @@
-﻿int diceValue = 1;
+﻿
+
+
+int diceValue = 1;
 
 switch (diceValue)
 {
@@ -19,7 +22,7 @@ switch (diceValue)
         Console.WriteLine("값은 6");
         break;
     default:
-        throw new Exception($"유효하지 않은 값이 들어왔어요 {diceValue}");
+        throw new Exception($"유효하지 않은 값이 들어왔어요 {diceValue}"); 
 }
 
 
