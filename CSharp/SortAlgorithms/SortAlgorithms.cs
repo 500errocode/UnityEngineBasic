@@ -50,8 +50,9 @@ namespace Collections
                 }
                 Swap(ref arr[i], ref arr[minIndex]);
             }
+            #endregion
             #region Insertion Sort
-            
+
         }
 
         ///<summary>
