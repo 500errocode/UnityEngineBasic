@@ -4,10 +4,8 @@ public class Horse : MonoBehaviour
 {
     public bool doMove;
     [SerializeField] private float _speed;
-    [Range(0.0f, 1.0f)]
-    [SerializeField] private float _stability;
-    [Range(0.0f, 1.0f)]
-    [SerializeField] private float _stamina;
+    [Range(0.0f, 1.0f)] [SerializeField] private float _stability;
+    [Range(0.0f, 1.0f)] [SerializeField] private float _stamina;
     private float _speedRefreshTimeMark;
     private float _staminaRefreshTimeMark;
     private float _speedModified;

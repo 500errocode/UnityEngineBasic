@@ -36,13 +36,8 @@ public class RaceManager : MonoBehaviour
         _horsesFinished[_grade] = horse;
 
         if (_grade < _horses.Length - 1)
-        _grade++;
+            _grade++;
         else
             FinishRace();
-    }
-
-    private void Awake()
-    {
-        _horsesFinished = new Horse[_horses.Length];
     }
 }
