@@ -11,7 +11,7 @@ namespace RhythmGame
     [Serializable]
     public struct NoteData
     {
-        public KeyCode Key;
+        public KeyCode key;
         public float time;
     }
 }

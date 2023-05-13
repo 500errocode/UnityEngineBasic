@@ -29,9 +29,9 @@ namespace RhythmGame
 
             _videoPlayer.Stop();
             string dir = UnityEditor.EditorUtility.SaveFilePanelInProject("노래 데이터 저장",
-                                                                       _songData.name,
-                                                                       "json",
-                                                                       String.Empty);
+            _songData.name,
+            "json",
+            String.Empty);
             System.IO.File.WriteAllText(dir, JsonUtility.ToJson(_songData));
             _songData = null;
         }
@@ -53,11 +53,11 @@ namespace RhythmGame
             }
         }
 
-        private NoteData CreateNoteData(KeyCode Key)
+        private NoteData CreateNoteData(KeyCode key)
         {
             NoteData noteData = new NoteData()
             {
-                Key = Key,
+                key = key,
                 time = (float)Math.Round(_videoPlayer.time, 2)
             };
             return noteData;
