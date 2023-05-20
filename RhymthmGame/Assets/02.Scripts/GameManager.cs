@@ -6,7 +6,19 @@ namespace RhythmGame
 {
     public class GameManager : MonoBehaviour
     {
-        public static GameManager instance;
+        public static GameManager instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new GameObject().AddComponent<GameManager>();
+                    DontDestroyOnLoad(_instance.gameObject);
+                }
+                return _instance;
+            }
+        }
+        private static GameManager _instance;
 
         public enum State
         {
@@ -45,16 +57,11 @@ namespace RhythmGame
 
         private void Awake()
         {
-            if (instance == null)
-            {
-                instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
+            if (_instance != null)
             {
                 Destroy(gameObject);
             }
-        }    
+        }
 
         private void Update()
         {
