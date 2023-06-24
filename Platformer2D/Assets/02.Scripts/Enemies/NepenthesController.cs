@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Nepenthes : EnemyController
+public class NepenthesController : EnemyController
 {
     [SerializeField] private float _attackPower;
     [SerializeField] private Vector2 _attackBoxCenter;
