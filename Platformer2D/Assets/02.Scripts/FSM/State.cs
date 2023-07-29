@@ -11,6 +11,8 @@ public enum StateType
     Land,
     Crouch,
     StandUp,
+    LadderUp,
+    LadderDown,
     Attack,
     Hurt,
     Die
@@ -39,6 +41,7 @@ public abstract class State : IState<StateType>
         this.character = machine.GetComponent<Character>();
         this.movement = machine.GetComponent<Movement>();
     }
+
 
     public abstract StateType MoveNext();
 

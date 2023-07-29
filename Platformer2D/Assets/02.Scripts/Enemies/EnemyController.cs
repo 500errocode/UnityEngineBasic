@@ -15,6 +15,9 @@ public class EnemyController : MonoBehaviour, IDamageable, IDirectionChangeable
         get => _direction;
         set
         {
+            if (_direction == value)
+                return;
+
             if (value > 0)
             {
                 _direction = DIRECTION_RIGHT;
@@ -30,9 +33,9 @@ public class EnemyController : MonoBehaviour, IDamageable, IDirectionChangeable
         }
     }
 
-    public float hp
-    {
-        get => _hp;
+    public float hp 
+    { 
+        get => _hp; 
         set
         {
             float prev = _hp;
@@ -44,7 +47,7 @@ public class EnemyController : MonoBehaviour, IDamageable, IDirectionChangeable
                 if (prev > value)
                     onHpDecreased?.Invoke(prev - value);
                 else
-                    onHplncreased?.Invoke(value - prev);
+                    onHpIncreased?.Invoke(value - prev);
             }
 
             if (value >= _hpMax)
@@ -156,7 +159,7 @@ public class EnemyController : MonoBehaviour, IDamageable, IDirectionChangeable
             {
                 case 0:
                     {
-                        _controller._movable = true;    
+                        _controller._movable = true;
                         _controller._animator.Play("Move");
                         _current++;
                     }
@@ -348,7 +351,7 @@ public class EnemyController : MonoBehaviour, IDamageable, IDirectionChangeable
     public GameObject target;
 
     public event Action<float> onHpChanged;
-    public event Action<float> onHplncreased;
+    public event Action<float> onHpIncreased;
     public event Action<float> onHpDecreased;
     public event Action onHpMax;
     public event Action onHpMin;
@@ -382,7 +385,7 @@ public class EnemyController : MonoBehaviour, IDamageable, IDirectionChangeable
     {
         hp = hpMax;
         onHpMin += () => ChangeState(StateType.Die);
-        HpBar.Create(this, this, transform, new Vector3(0.0f, _col.size.y + 0.2f, 0.0f));
+        HpBar.Create(this, this, transform, new Vector3(0.0f, _col.size.y + 0.1f, 0.0f));
         _ai = AI.Think;
     }
 
@@ -427,7 +430,6 @@ public class EnemyController : MonoBehaviour, IDamageable, IDirectionChangeable
             _ai = AI.StartFollow;
         }
 
-
         switch (_ai)
         {
             case AI.Idle:
@@ -445,23 +447,34 @@ public class EnemyController : MonoBehaviour, IDamageable, IDirectionChangeable
                 break;
             case AI.TakeARest:
                 {
+                    if (_aiThinkTimer > 0)
+                        _aiThinkTimer -= Time.deltaTime;
+                    else
+                        _ai = AI.Think;
                 }
                 break;
             case AI.MoveLeft:
                 {
                     direction = DIRECTION_LEFT;
+                    if (_aiThinkTimer > 0)
+                        _aiThinkTimer -= Time.deltaTime;
+                    else
+                        _ai = AI.Think;
                 }
                 break;
             case AI.MoveRight:
                 {
                     direction = DIRECTION_RIGHT;
+                    if (_aiThinkTimer > 0)
+                        _aiThinkTimer -= Time.deltaTime;
+                    else
+                        _ai = AI.Think;
                 }
                 break;
             case AI.StartFollow:
                 {
                     ChangeState(StateType.Move);
                     _ai = AI.Follow;
-
                 }
                 break;
             case AI.Follow:
@@ -471,6 +484,7 @@ public class EnemyController : MonoBehaviour, IDamageable, IDirectionChangeable
                         _ai = AI.Think;
                         return;
                     }
+
                     if (_rb.position.x < target.transform.position.x - _col.size.x)
                     {
                         direction = DIRECTION_RIGHT;
@@ -511,7 +525,7 @@ public class EnemyController : MonoBehaviour, IDamageable, IDirectionChangeable
         }
     }
 
-    public void Damage(GameObject damager, float amout) 
+    public void Damage(GameObject damager, float amout)
     {
         target = damager;
         hp = _hp - amout;

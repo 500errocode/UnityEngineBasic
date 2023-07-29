@@ -7,13 +7,12 @@ public class HpBar : MonoBehaviour
 {
     [SerializeField] private Slider _hp;
 
-    public static HpBar Create(IDamageable damageable, IDirectionChangeable directionChangeable,
-      Transform target, Vector3 offset)
+    public static HpBar Create(IDamageable damageable, IDirectionChangeable directionChangeable, Transform target, Vector3 offset)
     {
         HpBar hpBar = Instantiate(Resources.Load<HpBar>("HpBar"),
-                                          target.transform.position + offset,
-                                          Quaternion.identity,
-                                          target);
+                                                target.transform.position + offset,
+                                                Quaternion.identity,
+                                                target);
         hpBar._hp.minValue = damageable.hpMin;
         hpBar._hp.maxValue = damageable.hpMax;
         hpBar._hp.value = damageable.hp;

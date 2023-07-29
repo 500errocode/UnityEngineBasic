@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : Character
 {
     private PlayerInput _input;
-
+   
     protected override void Awake()
     {
         base.Awake();
@@ -18,6 +19,9 @@ public class Player : Character
         InputAction crouchAction = _input.currentActionMap.FindAction("Crouch");
         crouchAction.performed += ctx => stateMachine.ChangeState(StateType.Crouch);
         crouchAction.canceled += ctx => stateMachine.ChangeState(StateType.StandUp);
+
+        InputAction upArrowAction = _input.currentActionMap.FindAction("UpArrow");
+        upArrowAction.performed += ctx => stateMachine.ChangeState(StateType.LadderUp);
     }
 
     private void Start()
@@ -31,6 +35,8 @@ public class Player : Character
             { StateType.Land, new StateLand(stateMachine) },
             { StateType.Crouch, new StateCrouch(stateMachine) },
             { StateType.StandUp, new StateStandUp(stateMachine) },
+            { StateType.LadderUp, new StateLadderUp(stateMachine) },
+            { StateType.LadderDown, new StateLadderDown(stateMachine) },
         });
     }
 }

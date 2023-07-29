@@ -11,12 +11,12 @@ public class GroundDetector : MonoBehaviour
     [SerializeField] private LayerMask _groundMask;
     private Collider2D _detected;
 
-    private void FixedUpdate()
+    private void Update()
     {
         _detected = Physics2D.OverlapBox(point: (Vector2)transform.position + _castOffset,
-                                                      size: _castSize,
-                                                      angle: 0.0f,
-                                                      layerMask: _groundMask);
+                                                              size: _castSize,
+                                                              angle: 0.0f,
+                                                              layerMask: _groundMask);
         _isDetected = _detected;
     }
 

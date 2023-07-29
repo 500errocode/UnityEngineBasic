@@ -11,13 +11,14 @@ public class NepenthesController : EnemyController
     protected override void Hit()
     {
         base.Hit();
+        Collider2D target =
         Physics2D.OverlapBox((Vector2)transform.position
-                                        + new Vector2(_attackBoxCenter.x * direction, _attackBoxCenter.y),
-                                        _attackBoxSize,
-                                        0.0f,
-                                        aiDetectMask);
-        if (target != null && 
-           target.gameObject.TryGetComponent(out IDamageable damageable))
+                                           + new Vector2(_attackBoxCenter.x * direction, _attackBoxCenter.y),
+                                            _attackBoxSize,
+                                            0.0f,
+                                            aiDetectMask);
+        if (target != null &&
+            target.gameObject.TryGetComponent(out IDamageable damageable))
         {
             damageable.Damage(gameObject, _attackPower);
         }
@@ -27,8 +28,8 @@ public class NepenthesController : EnemyController
     {
         base.OnDrawGizmos();
         Gizmos.color = Color.magenta;
-        Gizmos.DrawWireCube(transform.position 
-            + new Vector3(_attackBoxCenter.x *direction, _attackBoxCenter.y, 0.0f),
-            _attackBoxSize);
+        Gizmos.DrawWireCube(transform.position
+                                            + new Vector3(_attackBoxCenter.x * direction, _attackBoxCenter.y, 0.0f),
+                                            _attackBoxSize);
     }
 }
