@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Build;
 using UnityEngine;
+using UnityEngine.AI;
 
 public enum StateID
 {
@@ -36,6 +38,30 @@ public class BehaviourManager : MonoBehaviour
     private Vector3 _inertia;
     private float _drag;
     private Vector3 _prevPos;
+    private bool _isRootMotion;
+    public float horizontal
+    {
+        get => _horizontal;
+        set
+        {
+            _horizontal = value;
+            _currentAnimator.SetFloat("Horizontal", value);
+        }
+    }
+    private float _horizontal;
+
+    public float vertical
+    {
+        get => _vertical;
+        set
+        {
+            _vertical = value;
+            _currentAnimator.SetFloat("Vertical", value);
+        }
+    }
+    private float _vertical;
+    private NavMeshAgent _agent;
+    public float speed;
 
     public bool ChangeState(StateID newStateID)
     {
@@ -62,6 +88,7 @@ public class BehaviourManager : MonoBehaviour
     private void Awake()
     {
         _currentAnimator= GetComponent<Animator>();
+        _agent = GetComponent<NavMeshAgent>();  
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         _drag = rigidbody.drag;
 
@@ -81,6 +108,17 @@ public class BehaviourManager : MonoBehaviour
         }
 
         ChangeState(StateID.Move);
+    }
+
+    private void Update()
+    {
+        if (_agent.enabled)
+        {
+            Vector3 velocity = (_agent.destination - transform.position).normalized * speed;
+
+            horizontal = Vector3.Dot(velocity, transform.right);
+            vertical = Vector3.Dot(velocity, transform.forward);
+        }
     }
 
     private void FixedUpdate()
