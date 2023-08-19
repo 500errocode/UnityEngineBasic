@@ -1,5 +1,9 @@
-﻿public class Root : Node
+﻿public class Root : Node, IParentOfChild
 {
+    public Root(BehaviourTree tree) : base(tree)
+    {
+    }
+
     public Node child { get; set; }
 
     public override Status Invoke()

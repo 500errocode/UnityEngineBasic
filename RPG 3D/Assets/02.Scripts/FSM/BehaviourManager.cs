@@ -85,7 +85,7 @@ public class BehaviourManager : MonoBehaviour
         return true;
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _currentAnimator= GetComponent<Animator>();
         _agent = GetComponent<NavMeshAgent>();  
@@ -135,4 +135,14 @@ public class BehaviourManager : MonoBehaviour
 
         _prevPos = transform.position;
     }
+
+    #region Animation Events
+
+    private void FootL() { }
+    private void FootR() { }
+    private void Hit() { }
+
+    #endregion
+
+
 }

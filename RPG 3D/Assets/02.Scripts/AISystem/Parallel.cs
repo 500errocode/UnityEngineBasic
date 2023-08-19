@@ -5,14 +5,14 @@ public class Parallel : Composite
 
     public enum Policy
     {
-        ReauireOne,
-        ReauireAll,
+        RequireOne,
+        RequireAll,
     }
     private Policy _successpolicy;
 
-    public Parallel(Policy successpolicy)
+    public Parallel(BehaviourTree tree) : base(tree)
     {
-        _successpolicy = successpolicy;
+        _successpolicy = Policy.RequireOne;
     }
 
     public override Status Invoke()
@@ -26,9 +26,9 @@ public class Parallel : Composite
         
         switch (_successpolicy)
         {
-            case Policy.ReauireOne:
+            case Policy.RequireOne:
                 return successCount > 0 ?Status.Success : Status.Failure;
-            case Policy.ReauireAll:
+            case Policy.RequireAll:
                 return successCount == children.Count ? Status.Success : Status.Failure;
             default:
                 throw new System.Exception("[BehaviourTree.Parallel] : Wrong poluicy");

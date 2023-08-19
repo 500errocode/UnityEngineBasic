@@ -1,10 +1,10 @@
 ﻿using System;
 
-public class Execution : Node
+public class Excution : Node
 {
     private Func<Status> _execute;
 
-    public Execution(Func<Status> execute)
+    public Excution(BehaviourTree tree, Func<Status> execute) : base(tree)
     {
         _execute = execute;
     }
@@ -14,3 +14,4 @@ public class Execution : Node
         return _execute.Invoke();
     }
 }
+
